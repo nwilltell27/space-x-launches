@@ -9,14 +9,30 @@ let launches; // added to global scope to access somewhere else.
 const $launches = $('#launches');
 
 // event listeners - code designed to capture and respond to events (i.e user clicks on something)
-
+$launches.on('click', '.card', handleShowModal);
 
 // functions - code that represents actions taken/carried out
-
 init()
 
 function init() { // this will run whenever the page first loads in the browser
     getData();
+}
+
+function handleShowModal() {
+    const flightId = parseInt(this.dataset.flightNumber);
+    const selectedLaunch = launches.find(function (launch) {
+        return launch.flight_number === flightId; // you can also use a loose equality '==' instead of parseInt
+    });
+
+    // add content to the modal
+    $('#patch').attr({
+        src: selectedLaunch.links.mission_patch_small,
+        alt: selectedLaunch.mission_name
+    });
+    $('#title').text(selectedLaunch.mission_name);
+    $('#year').text(`Year of Launch: ${selectedLaunch.launch_year}`);
+    $('#details').text(selectedLaunch.details.slice(0, 240));
+    $('.modal').modal();
 }
 
 function getData() {
@@ -29,10 +45,10 @@ function getData() {
         });
 }
 
-function render () {
-    const html = launches.map(function(launch) {
+function render() {
+    const html = launches.map(function (launch) {
         return `
-            <article class="card">
+            <article data-flight-number="${launch.flight_number}" class="card">
                 <h2>${launch.mission_name}</h2>
                 <p>${launch.launch_year}</p>
             </article>
