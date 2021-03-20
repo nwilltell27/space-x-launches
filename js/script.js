@@ -1,6 +1,6 @@
 // constant variables - data that never changes
 const BASE_URL = 'https://api.spacexdata.com/v3/launches';
-const API_KEY = 'adf;lkakdfl;kjad'; // if you had an API key
+// const API_KEY = 'adf;lkakdfl;kjad'; // if you had an API key
 
 // state variables - data that changes
 let launches; // added to global scope to access somewhere else. 
@@ -31,7 +31,7 @@ function handleShowModal() {
     });
     $('#title').text(selectedLaunch.mission_name);
     $('#year').text(`Year of Launch: ${selectedLaunch.launch_year}`);
-    $('#details').text(selectedLaunch.details.slice(0, 240));
+    $('#details').text(selectedLaunch.details);
     $('.modal').modal();
 }
 
@@ -49,7 +49,7 @@ function render() {
     const html = launches.map(function (launch) {
         return `
             <article data-flight-number="${launch.flight_number}" class="card">
-                <h2>${launch.mission_name}</h2>
+                <h1>${launch.mission_name}</h1>
                 <p>${launch.launch_year}</p>
             </article>
         `;
