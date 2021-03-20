@@ -31,7 +31,6 @@ function handleShowModal() {
     });
     $('#title').text(selectedLaunch.mission_name);
     $('#year').text(`Year of Launch: ${selectedLaunch.launch_year}`);
-    $('#details').text(selectedLaunch.details);
     $('.modal').modal();
 }
 
@@ -49,7 +48,7 @@ function render() {
     const html = launches.map(function (launch) {
         return `
             <article data-flight-number="${launch.flight_number}" class="card">
-                <h1>${launch.mission_name}</h1>
+                <h3>${launch.mission_name}</h3>
                 <p>${launch.launch_year}</p>
             </article>
         `;
